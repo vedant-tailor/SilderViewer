@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+.linkcontain {
+    perspective: 120px;
+    perspective-origin: right;
+}
+
+.para-text {
+    font-family: "Staatliches";
+}
