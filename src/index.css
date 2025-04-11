@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+*{
+    font-family: "Staatliches";
+}
+
 .linkcontain {
     perspective: 120px;
     perspective-origin: right;
@@ -7,4 +11,8 @@
 
 .para-text {
     font-family: "Staatliches";
+}
+
+body{
+    background: #000;
 }

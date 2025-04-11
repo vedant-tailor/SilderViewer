@@ -1,12 +1,38 @@
 import React from 'react'
-import Cmain from './components/Cmain'
+import Cmain from './components/pages/Cmain'
 import Header from './components/Header'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+import About from './components/pages/About'
+import Contact from './components/pages/Contact'
+import Services from './components/pages/Services'
+import MouseFollower from './components/MouseFollower'
+
+// Create simple placeholder pages for navigation
+const AppContent = () => {
+  const location = useLocation();
+  
+  return (
+    <>
+      <MouseFollower />
+      <Header />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Cmain />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/services" element={<Services />} />
+        </Routes>
+      </AnimatePresence>
+    </>
+  );
+}
+
 const App = () => {
   return (
-    <div className='bg-black'>
-      <Header />
-      <Cmain />
-    </div>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   )
 }
 

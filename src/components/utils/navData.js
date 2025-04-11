@@ -21,7 +21,7 @@ export const navData = [
 export const footerData = [
     {
         title: 'Instagram',
-        link: 'https://www.instagram.com/your_instagram_profile'
+        link: 'https://www.instagram.com/_vedanttailor'
     },
     {
         title: 'Twitter',

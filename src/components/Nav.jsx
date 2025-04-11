@@ -2,10 +2,11 @@ import React from 'react'
 import { navData } from './utils/navData'
 import { motion } from 'framer-motion'
 import { footerData } from './utils/navData'
+import { Link, useNavigate } from 'react-router-dom'
 
 
-
-const Nav = () => {
+const Nav = ({ setIsActive }) => {
+    const navigate = useNavigate();
 
     const prepestive = {
         initial: {
@@ -65,12 +66,13 @@ const Nav = () => {
               exit="exit"
               initial="initial"
             >
-              <a
+              <Link
                 className="text-white text-[2.5rem] font-extralight"
-                href={item.link}
+                to={item.link}
+                onClick={() => setIsActive(false)}
               >
                 {item.title}
-              </a>
+              </Link>
             </motion.div>
           </div>
         ))}
@@ -78,18 +80,38 @@ const Nav = () => {
 
       <div className="navfooter flex justify-between">
         {footerData.map((item, i) => (
-            <motion.a
-              className="text-white text-[1rem] font-light"
-              key={`f_${i}`}
-              custom={i}
-              variants={footerPrepestive}
-              animate="enter"
-              exit="exit"
-              initial="initial"
-              href={item.link}
-            >
-              {item.title}
-            </motion.a>
+            item.link.startsWith('http') ? (
+              <motion.a
+                className="text-white text-[1rem] font-light"
+                key={`f_${i}`}
+                custom={i}
+                variants={footerPrepestive}
+                animate="enter"
+                exit="exit"
+                initial="initial"
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsActive(false)}
+              >
+                {item.title}
+              </motion.a>
+            ) : (
+              <motion.div key={`f_${i}`}>
+                <Link
+                  className="text-white text-[1rem] font-light"
+                  custom={i}
+                  variants={footerPrepestive}
+                  animate="enter"
+                  exit="exit"
+                  initial="initial"
+                  to={item.link}
+                  onClick={() => setIsActive(false)}
+                >
+                  {item.title}
+                </Link>
+              </motion.div>
+            )
         ))}
       </div>
     </div>

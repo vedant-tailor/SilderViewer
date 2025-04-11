@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { data } from './utils/cardsData'
+import { data } from '../utils/cardsData'
 
 const Cmain = () => {
   const [hoveredPanel, setHoveredPanel] = useState(null);
   const [selectedPanel, setSelectedPanel] = useState(null);
-  const [bgColor, setBgColor] = useState('bg-black');
+  const [bgColor, setBgColor] = useState('bg-[#fdfaf6]');
   
   useEffect(() => {
     const handleScroll = () => {
       if(selectedPanel) {
         setSelectedPanel(null);
-        setBgColor('bg-black');
+        setBgColor('bg-[#fdfaf6]');
       }
     };
     
@@ -52,7 +52,7 @@ const Cmain = () => {
             onClick={() => {
               const newSelection = selectedPanel === card.id ? null : card.id;
               setSelectedPanel(newSelection);
-              setBgColor(newSelection ? card.color : 'bg-black');
+              setBgColor(newSelection ? card.color : 'bg-[#fdfaf6]');
             }}
           >
             <div className="w-full h-full">
@@ -61,8 +61,8 @@ const Cmain = () => {
                 alt={card.title}
                 className={`w-full h-full object-cover transform transition-transform duration-500 ${
                   selectedPanel === card.id
-                    ? "grayscale-0 contrast-100 brightness-100 scale-105"
-                    : "grayscale contrast-125 brightness-75"
+                    ? "grayscale-0  contrast-100 brightness-100 scale-105"
+                    : "grayscale contrast-125 brightness-75 hover:grayscale-0"
                 }`}
               />
             </div>
