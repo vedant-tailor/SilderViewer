@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 const MouseFollower = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isImageHovered, setIsImageHovered] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
+  const location = useLocation();
 
   const springConfig = { damping: 30, stiffness: 100 };
   const cursorXSpring = useSpring(cursorX, springConfig);
@@ -37,38 +40,86 @@ const MouseFollower = () => {
   useEffect(() => {
     if (isMobileDevice) return;
 
+    // Reset states when page changes
+    setIsHovered(false);
+    setIsImageHovered(false);
+
     const handleHover = () => setIsHovered(true);
     const handleUnhover = () => setIsHovered(false);
+    const handleImageHover = () => setIsImageHovered(true);
+    const handleImageUnhover = () => setIsImageHovered(false);
 
-    const interactiveElements = document.querySelectorAll(
-      'a, button, input, [role="button"]'
-    );
+    // Add a small delay to allow new page content to render
+    const attachEventListeners = () => {
+      // Select all interactive elements including header elements
+      const interactiveElements = document.querySelectorAll(
+        'a, button, input, [role="button"], h1, .menu, .text-black'
+      );
 
-    interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", handleHover);
-      el.addEventListener("mouseleave", handleUnhover);
-    });
+      const imageElements = document.querySelectorAll('img');
+
+      interactiveElements.forEach((el) => {
+        el.addEventListener("mouseenter", handleHover);
+        el.addEventListener("mouseleave", handleUnhover);
+      });
+
+      imageElements.forEach((el) => {
+        el.addEventListener("mouseenter", handleImageHover);
+        el.addEventListener("mouseleave", handleImageUnhover);
+      });
+    };
+
+    // Initial attachment
+    attachEventListeners();
+
+    // Reattach after a short delay to catch any dynamically loaded content
+    const timeoutId = setTimeout(attachEventListeners, 500);
 
     return () => {
+      clearTimeout(timeoutId);
+      const interactiveElements = document.querySelectorAll(
+        'a, button, input, [role="button"], h1, .menu, .text-black'
+      );
+      const imageElements = document.querySelectorAll('img');
+
       interactiveElements.forEach((el) => {
         el.removeEventListener("mouseenter", handleHover);
         el.removeEventListener("mouseleave", handleUnhover);
       });
+      imageElements.forEach((el) => {
+        el.removeEventListener("mouseenter", handleImageHover);
+        el.removeEventListener("mouseleave", handleImageUnhover);
+      });
     };
-  }, [isMobileDevice]);
+  }, [isMobileDevice, location.pathname]); // Add location.pathname as dependency
 
   if (isMobileDevice) return null;
 
   return (
     <motion.div
-      className="pointer-events-none fixed left-0 top-0 z-[9999] mix-blend-difference"
+      className={`cursor-follower pointer-events-none fixed left-0 top-0 z-[9999] ${
+        !isImageHovered ? 'mix-blend-difference' : ''
+      }`}
       style={{ x: cursorXSpring, y: cursorYSpring }}
     >
       <motion.div
-        className="h-3 w-3 rounded-full border bg-white border-gray-400"
-        animate={{ scale: isHovered ? 1.5 : 1 }}
-        transition={{ duration: 0.15, ease: "easeOut" }}
-      />
+        className="relative flex items-center justify-center"
+        animate={{ 
+          scale: isImageHovered ? 8 : isHovered ? 6 : 1,
+          opacity: isHovered || isImageHovered ? 0.8 : 1
+        }}
+        transition={{ 
+          duration: 0.2,
+          ease: "easeOut"
+        }}
+      >
+        <div className={`h-3 w-3 rounded-full border ${isImageHovered ? 'bg-black' : 'border-white bg-white'}`} />
+        {isImageHovered && (
+          <span className="absolute text-white text-[2px] font-medium">
+            Click
+          </span>
+        )}
+      </motion.div>
     </motion.div>
   );
 };

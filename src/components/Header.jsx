@@ -27,7 +27,7 @@ const Header = () => {
   return (
     <>
      <div className="fixed z-50 top-0 left-0 w-full h-16 flex justify-between items-center">
-        <h1 className="text-2xl font-bold mt-[70px] ml-[50px] text-black ">VT</h1>
+        <h1 className="text-2xl font-bold mt-[70px] ml-[50px] text-black cursor-pointer">VT</h1>
      </div>
       <div className="fixed right-[50px] top-[50px] z-50">
         <motion.div
@@ -43,7 +43,7 @@ const Header = () => {
         <Button isActive={isActive} setIsActive={setIsActive} />
       </div>
       <div className="fixed bottom-0 w-full h-full flex justify-between items-end">
-        <h1 className="text-black ml-[50px] mb-[30px]">Independent Developer Vedant Tailor</h1>
+        <a href="https://github.com/vedant-tailor/" className="text-black ml-[50px] mb-[30px]">Independent Developer Vedant Tailor</a>
         <a href="mailto:vedanttailor@outlook.com" className="text-black mr-[50px] mb-[30px]">Mail</a>
       </div>
     </>
