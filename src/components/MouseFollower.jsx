@@ -49,7 +49,7 @@ const MouseFollower = () => {
     const handleImageHover = () => setIsImageHovered(true);
     const handleImageUnhover = () => setIsImageHovered(false);
 
-    // Add a small delay to allow new page content to render
+    // Function to attach event listeners to all interactive elements
     const attachEventListeners = () => {
       // Select all interactive elements including header elements
       const interactiveElements = document.querySelectorAll(
@@ -69,14 +69,8 @@ const MouseFollower = () => {
       });
     };
 
-    // Initial attachment
-    attachEventListeners();
-
-    // Reattach after a short delay to catch any dynamically loaded content
-    const timeoutId = setTimeout(attachEventListeners, 500);
-
-    return () => {
-      clearTimeout(timeoutId);
+    // Remove all previous event listeners
+    const removeEventListeners = () => {
       const interactiveElements = document.querySelectorAll(
         'a, button, input, [role="button"], h1, .menu, .text-black'
       );
@@ -86,10 +80,33 @@ const MouseFollower = () => {
         el.removeEventListener("mouseenter", handleHover);
         el.removeEventListener("mouseleave", handleUnhover);
       });
+      
       imageElements.forEach((el) => {
         el.removeEventListener("mouseenter", handleImageHover);
         el.removeEventListener("mouseleave", handleImageUnhover);
       });
+    };
+
+    // Initial attachment
+    attachEventListeners();
+    
+    // Setup a recurring check to handle dynamically loaded content
+    const intervalId = setInterval(attachEventListeners, 1000);
+    
+    // Also run on any detected route change
+    const observer = new MutationObserver(() => {
+      setTimeout(() => {
+        removeEventListeners();
+        attachEventListeners();
+      }, 200);
+    });
+    
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      clearInterval(intervalId);
+      observer.disconnect();
+      removeEventListeners();
     };
   }, [isMobileDevice, location.pathname]); // Add location.pathname as dependency
 

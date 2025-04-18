@@ -89,8 +89,8 @@ const AboutFooter = () => {
 
           {/* Newsletter Column */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-bold mb-4">Subscribe</h3>
-            <p className="text-gray-400 mb-4">Stay updated with our latest features and releases.</p>
+            <h3 className="text-2xl font-bold mb-4">Hire Me</h3>
+            <p className="text-gray-400 mb-4">Make Animated Website For Your Business</p>
             <div className="flex flex-col sm:flex-row gap-2">
               <input 
                 type="email" 
@@ -104,7 +104,7 @@ const AboutFooter = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Subscribe
+                Hire
               </motion.a>
             </div>
           </motion.div>

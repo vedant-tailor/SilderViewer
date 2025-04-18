@@ -27,7 +27,7 @@ const Cmain = () => {
         {data.map((card, index) => (
           <motion.div
             key={card.id}
-            className="h-[80vh] w-[80px] relative cursor-pointer overflow-hidden"
+            className={`h-[${window.innerWidth > 768 ? '80vh' : '60vh'}] w-[${window.innerWidth > 768 ? '80px' : '60px'}] relative cursor-pointer overflow-hidden`}
             initial={{ opacity: 0, x: 10 }}
             animate={{
               opacity: selectedPanel ? (selectedPanel === card.id ? 1 : 0) : 1,

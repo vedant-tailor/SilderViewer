@@ -11,10 +11,6 @@ export const navData = [
         title: 'Contact',
         link: '/contact'
     },
-    {
-        title: 'Services',
-        link: '/services'
-    },
     
 ]
 

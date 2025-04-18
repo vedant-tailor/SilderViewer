@@ -3,6 +3,7 @@ import Button from "./Button";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Nav from "./Nav";
+import { Link } from "react-router-dom";
 
 const variants = {
   open: {
@@ -27,9 +28,12 @@ const Header = ({ currentPage }) => {
   return (
     <>
       <div className="fixed z-50 top-0 left-0 w-full h-16 flex justify-between items-center">
-        <h1 className="text-2xl font-bold mt-[70px] ml-[50px] text-black cursor-pointer">
+        <Link
+          to="/"
+          className="text-2xl font-bold mt-[70px] ml-[50px] text-black cursor-pointer"
+        >
           VT
-        </h1>
+        </Link>
       </div>
       <div className="fixed right-[50px] top-[50px] z-50">
         <motion.div
@@ -47,14 +51,14 @@ const Header = ({ currentPage }) => {
       {currentPage === "Cmain" && (
         <div className="fixed bottom-0 w-full h-full flex justify-between items-end">
           <a
-            target="_blank" 
+            target="_blank"
             href="https://github.com/vedant-tailor/"
             className="text-black ml-[50px] mb-[30px]"
           >
             Independent Developer Vedant Tailor
           </a>
           <a
-            target="_blank" 
+            target="_blank"
             href="mailto:vedanttailor@outlook.com"
             className="text-black mr-[50px] mb-[30px]"
           >

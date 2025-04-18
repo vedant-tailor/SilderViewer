@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import About from './components/pages/About'
 import Contact from './components/pages/Contact'
-import Services from './components/pages/Services'
 import MouseFollower from './components/MouseFollower'
 
 // Create simple placeholder pages for navigation
@@ -18,7 +17,6 @@ const AppContent = () => {
     if (path === '/') return 'Cmain';
     if (path === '/about') return 'About';
     if (path === '/contact') return 'Contact';
-    if (path === '/services') return 'Services';
     return 'Cmain'; // Default
   };
   
@@ -31,7 +29,6 @@ const AppContent = () => {
           <Route path="/" element={<Cmain />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/services" element={<Services />} />
         </Routes>
       </AnimatePresence>
     </>
