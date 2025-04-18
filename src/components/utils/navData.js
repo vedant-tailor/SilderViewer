@@ -25,7 +25,7 @@ export const footerData = [
     },
     {
         title: 'Twitter',
-        link: 'https://www.twitter.com/your_twitter_profile'
+        link: 'https://www.twitter.com/vedanttailor8'
     },
     
 ]

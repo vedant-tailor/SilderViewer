@@ -12,10 +12,20 @@ import MouseFollower from './components/MouseFollower'
 const AppContent = () => {
   const location = useLocation();
   
+  // Determine current page based on pathname
+  const getPageName = () => {
+    const path = location.pathname;
+    if (path === '/') return 'Cmain';
+    if (path === '/about') return 'About';
+    if (path === '/contact') return 'Contact';
+    if (path === '/services') return 'Services';
+    return 'Cmain'; // Default
+  };
+  
   return (
     <>
       <MouseFollower />
-      <Header />
+      <Header currentPage={getPageName()} />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Cmain />} />

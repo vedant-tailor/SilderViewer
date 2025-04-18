@@ -99,6 +99,7 @@ const Nav = ({ setIsActive }) => {
             ) : (
               <motion.div key={`f_${i}`}>
                 <Link
+                 
                   className="text-white text-[1rem] font-light"
                   custom={i}
                   variants={footerPrepestive}
