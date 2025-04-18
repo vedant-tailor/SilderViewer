@@ -6,6 +6,7 @@ const Cmain = () => {
   const [hoveredPanel, setHoveredPanel] = useState(null);
   const [selectedPanel, setSelectedPanel] = useState(null);
   const [bgColor, setBgColor] = useState('bg-[#fdfaf6]');
+  const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -15,8 +16,17 @@ const Cmain = () => {
       }
     };
     
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
     window.addEventListener('wheel', handleScroll);
-    return () => window.removeEventListener('wheel', handleScroll);
+    window.addEventListener('resize', checkMobile);
+    return () => {
+      window.removeEventListener('wheel', handleScroll);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, [selectedPanel]);
 
   return (
@@ -24,10 +34,10 @@ const Cmain = () => {
       className={`${bgColor} min-h-screen w-full overflow-hidden text-white flex items-center justify-center transition-colors duration-500`}
     >
       <div className="flex flex-row items-center gap-[2px] mx-auto">
-        {data.map((card, index) => (
+        {data.slice(0, isMobile ? 5 : data.length).map((card, index) => (
           <motion.div
             key={card.id}
-            className={`h-[${window.innerWidth > 768 ? '80vh' : '60vh'}] w-[${window.innerWidth > 768 ? '80px' : '60px'}] relative cursor-pointer overflow-hidden`}
+            className="h-[40vh] w-[40px] md:h-[80vh] md:w-[80px] relative cursor-pointer overflow-hidden"
             initial={{ opacity: 0, x: 10 }}
             animate={{
               opacity: selectedPanel ? (selectedPanel === card.id ? 1 : 0) : 1,
