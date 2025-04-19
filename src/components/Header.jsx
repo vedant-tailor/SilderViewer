@@ -32,7 +32,7 @@ const Header = ({ currentPage }) => {
           to="/"
           className="text-2xl font-bold mt-[70px] ml-[50px] text-black cursor-pointer"
         >
-          VT
+          SV
         </Link>
       </div>
       <div className="fixed right-[50px] top-[50px] z-50">
